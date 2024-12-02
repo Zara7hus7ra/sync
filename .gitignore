@@ -2,3 +2,4 @@
 train*/
 *.json*
 *.csv
+*pycache*
