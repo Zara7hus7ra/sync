@@ -1,22 +1,22 @@
 # basic imports
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,2"
-
-# transformers imports
-from transformers import LiltConfig, BertConfig, EncoderDecoderConfig, EncoderDecoderModel, BertTokenizer, LayoutLMv3Tokenizer, LiltModel
-from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
-from transformers import default_data_collator
-from datasets import load_dataset
-
-# torch imports
-import torch
-from torch.utils.data import Dataset, DataLoader
-
-# internal imports
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 
 # other external imports
 import pandas as pd
+# torch imports
+import torch
+from datasets import load_dataset
+from torch.utils.data import DataLoader, Dataset
+# transformers imports
+from transformers import (BertConfig, BertTokenizer, EncoderDecoderConfig,
+                          EncoderDecoderModel, LayoutLMv3Tokenizer, LiltConfig,
+                          LiltModel, Seq2SeqTrainer, Seq2SeqTrainingArguments,
+                          default_data_collator)
+
+# internal imports
+
 
 
 # prepare tokenizer.
@@ -226,7 +226,7 @@ if __name__ == "__main__":
     ## for training.
     num_instances = 500000  #total 620082 ./dataset/merged.jsonl Number of examples after filtered: 547084
     learning_rate = 1e-4
-    batch_size = 16
+    batch_size = 28
     num_train_steps = 400000 #400000
     output_dir = f"./train.lr_{learning_rate}.bsz_{batch_size}.step_{num_train_steps}.layer_{num_encoder_hidden_layers}-{num_decoder_hidden_layers}"
     save_total_limit = 100
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     data_file = f"{dataset_dir}/merged.jsonl"
 
     # model_ckpt_dir = '/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_8.step_400000.layer_12-12/checkpoint-32000'
-    model_ckpt_dir = '/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_8.step_400000.layer_12-12_36000/checkpoint-36000'
+    model_ckpt_dir = '/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_16.step_500000.layer_12-12_36k+20k/checkpoint-20000'
     encoder_ckpt_dir = "/home/zychen/hwproject/my_modeling_phase_1/Tokenizer_PretrainedWeights/lilt-roberta-en-base"
 
     tgt_tokenizer_dir = "/home/zychen/hwproject/my_modeling_phase_1/Tokenizer_PretrainedWeights/bert-base-chinese-tokenizer"

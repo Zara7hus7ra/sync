@@ -18,7 +18,7 @@ from transformers import BertTokenizer, EncoderDecoderModel
 
 chrf = CHRF(word_order=2)  # word_order=2 to be chrf++.
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,4,5"
+os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 
 # hyper-parameters.
 ## for model.
@@ -34,7 +34,7 @@ length_penalty = 1.0
 batch_size = 16
 metric_res_filepath = os.path.join(output_dir, "metric_res.json")
 decoding_res_filepath = os.path.join(output_dir, "decoding_res.json")
-trained_model_dir = "/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_16.step_500000.layer_12-12_36k+20k/checkpoint-20000"
+trained_model_dir = "/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_28.step_400000.layer_12-12/checkpoint-64000"
 
 dataset_dir = "/home/zychen/hwproject/my_modeling_phase_1/dataset"
 data_file = f"{dataset_dir}/testset_10k.jsonl"

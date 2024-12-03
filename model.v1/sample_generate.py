@@ -3,20 +3,20 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-# transformers imports
-from transformers import LiltConfig, BertConfig, EncoderDecoderConfig, EncoderDecoderModel, BertTokenizer, LayoutLMv3Tokenizer, LiltModel
-from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
-from transformers import default_data_collator
-from datasets import load_dataset
-
+# other external imports
+import pandas as pd
 # torch imports
 import torch
-from torch.utils.data import Dataset, DataLoader
+from datasets import load_dataset
+from torch.utils.data import DataLoader, Dataset
+# transformers imports
+from transformers import (BertConfig, BertTokenizer, EncoderDecoderConfig,
+                          EncoderDecoderModel, LayoutLMv3Tokenizer, LiltConfig,
+                          LiltModel, Seq2SeqTrainer, Seq2SeqTrainingArguments,
+                          default_data_collator)
 
 # internal imports
 
-# other external imports
-import pandas as pd
 
 
 def prepare_tokenizer(src_tokenizer_dir, tgt_tokenizer_dir):
@@ -42,7 +42,8 @@ if __name__ == "__main__":
     )
     model.eval()
 
-    from model_and_train import MyDataset, prepare_dataset_df, prepare_tokenizer
+    from model_and_train import (MyDataset, prepare_dataset_df,
+                                 prepare_tokenizer)
 
     dataset_dir = "/home/zychen/hwproject/my_modeling_phase_1/dataset"
     data_file = f"{dataset_dir}/merged.jsonl"

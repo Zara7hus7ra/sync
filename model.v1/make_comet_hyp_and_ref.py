@@ -1,17 +1,20 @@
 from datasets import load_dataset
 import pandas as pd
 
-text_src_jsonl = '/home/zychen/hwproject/my_modeling_phase_1/mytest/text_src.jsonl'
-dataset = load_dataset("json", data_files=text_src_jsonl)["train"]
-print(f"Number of examples: {len(dataset)}")
-text_src_df = dataset.to_pandas()
+# text_src_jsonl = '/home/zychen/hwproject/my_modeling_phase_1/mytest/text_src.jsonl'
+# dataset = load_dataset("json", data_files=text_src_jsonl)["train"]
+# print(f"Number of examples: {len(dataset)}")
+# text_src_df = dataset.to_pandas()
 
-decoding_res = '/home/zychen/hwproject/my_modeling_phase_1/mytest_3600_test5k/decoding_res.json'
+# decoding_res = '/home/zychen/hwproject/my_modeling_phase_1/mytest_3600_test5k/decoding_res.json'
+decoding_res = '/home/zychen/hwproject/my_modeling_phase_1/mytest_from56k+64k/decoding_res.json'
 dataset2 = load_dataset("json", data_files=decoding_res)["train"]
 print(f"Number of examples: {len(dataset2)}")
 decoding_df = dataset2.to_pandas()
 
-df_merged = pd.concat([text_src_df, decoding_df], axis=1)
+# df_merged = pd.concat([text_src_df, decoding_df], axis=1)
+
+df_merged = decoding_df
 print(df_merged.columns.tolist(), df_merged.iloc[4500])
 
 

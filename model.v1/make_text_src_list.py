@@ -1,6 +1,7 @@
-from model_and_train import MyDataset, prepare_tokenizer, prepare_dataset_df
-from torch.utils.data import Dataset, DataLoader
 import json
+
+from model_and_train import MyDataset, prepare_dataset_df, prepare_tokenizer
+from torch.utils.data import DataLoader, Dataset
 
 dataset_dir = "/home/zychen/hwproject/my_modeling_phase_1/dataset"
 data_file = f"{dataset_dir}/testset_10k.jsonl"

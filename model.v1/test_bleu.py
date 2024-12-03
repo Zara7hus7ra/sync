@@ -3,22 +3,22 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-# transformers imports
-from tqdm import tqdm
-from transformers import LiltConfig, BertConfig, EncoderDecoderConfig, EncoderDecoderModel, BertTokenizer, LayoutLMv3Tokenizer, LiltModel
-from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
-from transformers import default_data_collator
-from datasets import load_dataset
-
-# torch imports
-import torch
-from torch.utils.data import Dataset, DataLoader
-
-# internal imports
-
 # other external imports
 import pandas as pd
 import sacrebleu
+# torch imports
+import torch
+from datasets import load_dataset
+from torch.utils.data import DataLoader, Dataset
+# transformers imports
+from tqdm import tqdm
+from transformers import (BertConfig, BertTokenizer, EncoderDecoderConfig,
+                          EncoderDecoderModel, LayoutLMv3Tokenizer, LiltConfig,
+                          LiltModel, Seq2SeqTrainer, Seq2SeqTrainingArguments,
+                          default_data_collator)
+
+# internal imports
+
 
 
 def prepare_tokenizer(src_tokenizer_dir, tgt_tokenizer_dir):
@@ -37,9 +37,9 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     device = 'cpu'
     print(device)
-    checkpoints_dir = '/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_8.step_400000.layer_12-12_36000'
+    checkpoints_dir = '/home/zychen/hwproject/my_modeling_phase_1/train.lr_0.0001.bsz_28.step_400000.layer_12-12'
     model = EncoderDecoderModel.from_pretrained(
-        f"{checkpoints_dir}/checkpoint-36000").to(device)
+        f"{checkpoints_dir}/checkpoint-64000").to(device)
     encoder_ckpt_dir = "/home/zychen/hwproject/my_modeling_phase_1/Tokenizer_PretrainedWeights/lilt-roberta-en-base"
     tgt_tokenizer_dir = "/home/zychen/hwproject/my_modeling_phase_1/Tokenizer_PretrainedWeights/bert-base-chinese-tokenizer"
 
@@ -53,7 +53,8 @@ if __name__ == "__main__":
     data_file = f"{dataset_dir}/merged.jsonl"
     dataset_df = prepare_dataset_df(data_file=data_file)[:5000]
     print(f"\nnum_instances: {len(dataset_df)}\n")
-    from model_and_train import MyDataset, prepare_dataset_df, prepare_tokenizer
+    from model_and_train import (MyDataset, prepare_dataset_df,
+                                 prepare_tokenizer)
 
     my_dataset = MyDataset(
         df=dataset_df,
@@ -63,7 +64,7 @@ if __name__ == "__main__":
         max_target_length=512,
     )
 
-    dataloader = DataLoader(my_dataset, batch_size=12, shuffle=False)
+    dataloader = DataLoader(my_dataset, batch_size=4, shuffle=False)
 
     references = []
     predictions = []
